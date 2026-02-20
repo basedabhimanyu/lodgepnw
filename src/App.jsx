@@ -89,7 +89,7 @@ const App = () => {
                         <p style={{ textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.875rem', marginBottom: '1rem', color: '#888' }}>Industry Expertise</p>
                         <h2 style={{ marginBottom: '3rem' }}>Tailored <span style={{ color: '#666' }}>for your specific needs.</span></h2>
 
-                        <div className="tabs-wrapper" style={{ display: 'inline-flex', background: '#111', padding: '0.5rem', borderRadius: '100px', border: '1px solid #333', marginBottom: '3rem' }}>
+                        <div className="tabs-wrapper">
                             <button
                                 className={`tab-btn ${expertiseTab === 'cabins' ? 'active' : ''}`}
                                 onClick={() => setExpertiseTab('cabins')}
@@ -106,7 +106,7 @@ const App = () => {
                             </button>
                         </div>
 
-                        <div style={{ background: '#0a0a0a', border: '1px solid #222', borderRadius: '24px', padding: '3rem', textAlign: 'left', minHeight: '300px' }}>
+                        <div className="content-box">
                             <AnimatePresence mode="wait">
                                 {expertiseTab === 'cabins' && (
                                     <motion.div
@@ -279,7 +279,7 @@ const App = () => {
                         </p>
                     </motion.div>
 
-                    <div style={{ background: '#111', borderRadius: '24px', padding: '3rem', border: '1px solid #222' }}>
+                    <div className="advantage-box">
                         <h3 style={{ fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}>The Hybrid Advantage</h3>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
                             <div>
@@ -316,10 +316,10 @@ const App = () => {
                         <h2 style={{ marginBottom: '1rem' }}>One Simple <span style={{ color: '#666' }}>Starting Point.</span></h2>
                         <p style={{ marginBottom: '3rem', fontSize: '1.125rem' }}>We don’t believe in hidden fees or complex tiers. We offer professional, enterprise-grade hospitality solutions.</p>
 
-                        <div style={{ background: '#0a0a0a', border: '1px solid #333', borderRadius: '24px', padding: '4rem 2rem', position: 'relative', overflow: 'hidden' }}>
+                        <div className="pricing-box">
                             <div style={{ position: 'absolute', top: '0', left: '0', right: '0', height: '100px', background: 'radial-gradient(ellipse at top, rgba(255,255,255,0.05) 0%, transparent 70%)' }}></div>
                             <span style={{ fontSize: '1rem', fontWeight: 600, color: '#888', textTransform: 'uppercase', letterSpacing: '2px' }}>Starting At</span>
-                            <div style={{ fontSize: '5rem', fontWeight: 700, margin: '1rem 0 3rem', letterSpacing: '-0.04em' }}>$999<span style={{ fontSize: '2.5rem', color: '#666' }}>+</span></div>
+                            <div className="pricing-amount">$999<span className="pricing-plus">+</span></div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center', marginBottom: '4rem' }}>
                                 {['Full Website Development (Responsive & SEO Optimized)', 'Vacation Rental Software Integration (PMS / Channel Manager)', 'Automated Booking & Payment Setup', 'Initial Launch Consultation'].map((item, i) => (

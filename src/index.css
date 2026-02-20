@@ -299,7 +299,7 @@ nav {
     }
 }
 
-/* Custom Tabs additions */
+/* Custom Tabs & Features */
 .tab-btn {
     background: transparent;
     border: none;
@@ -341,44 +341,112 @@ nav {
     font-size: 1rem;
 }
 
-/* Custom Tabs additions */
-.tab-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    padding: 0.75rem 1.5rem;
-    border-radius: 100px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+/* Feature & Pricing Boxes (to replace inline styling for mobile) */
+.content-box {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 24px;
+    padding: 3rem;
+    text-align: left;
+    min-height: 300px;
 }
 
-.tab-btn:hover {
-    color: var(--text-main);
-}
-
-.tab-btn.active {
-    background: #222;
-    color: var(--text-main);
-}
-
-.info-card {
+.advantage-box {
     background: #111;
-    padding: 2rem;
-    border-radius: 16px;
+    border-radius: 24px;
+    padding: 3rem;
     border: 1px solid #222;
 }
 
-.info-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    color: #fff;
+.pricing-box {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
 }
 
-.info-card p {
-    font-size: 1rem;
+.pricing-amount {
+    font-size: clamp(3.5rem, 8vw, 5rem);
+    font-weight: 700;
+    margin: 1rem 0 3rem;
+    letter-spacing: -0.04em;
+}
+
+.pricing-plus {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #666;
+}
+
+.tabs-wrapper {
+    display: inline-flex;
+    background: #111;
+    padding: 0.5rem;
+    border-radius: 100px;
+    border: 1px solid #333;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    section {
+        padding: 4rem 0 !important;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero .btn {
+        width: 100%;
+    }
+
+    .marquee-content {
+        font-size: 2.5rem;
+    }
+
+    .bento-item {
+        padding: 2rem;
+    }
+
+    .content-box,
+    .advantage-box,
+    .pricing-box {
+        padding: 2rem 1.5rem;
+    }
+
+    .tabs-wrapper {
+        border-radius: 16px;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .nav-logo {
+        margin-bottom: 0.5rem;
+    }
+
+    footer .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem !important;
+    }
 }
