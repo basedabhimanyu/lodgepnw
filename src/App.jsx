@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart } from 'lucide-react'
+import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone } from 'lucide-react'
 
 const App = () => {
     const [expertiseTab, setExpertiseTab] = useState('cabins') // 'cabins' or 'venues'
@@ -330,7 +330,7 @@ const App = () => {
                                 ))}
                             </div>
 
-                            <a href="mailto:lodgepnw@gmail.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.25rem 3rem', width: '100%', maxWidth: '300px' }}>
+                            <a href="mailto:contact@lodgepnw.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.25rem 3rem', width: '100%', maxWidth: '300px' }}>
                                 Start Your Project
                             </a>
                         </div>
@@ -344,11 +344,25 @@ const App = () => {
                     <h2 style={{ marginBottom: '1.5rem' }}>Ready to Scale <span style={{ color: '#666' }}>Your Property?</span></h2>
                     <p style={{ fontSize: '1.25rem', marginBottom: '3rem' }}>Whether you’re a boutique hotel, a cozy cabin, or a premier event venue, let’s get you booked.</p>
 
-                    <a href="mailto:lodgepnw@gmail.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.5rem 3rem', marginBottom: '2rem' }}>
-                        Email Us: lodgepnw@gmail.com
+                    <a href="mailto:contact@lodgepnw.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.5rem 3rem', marginBottom: '2rem' }}>
+                        Email Us: contact@lodgepnw.com
                     </a>
 
                     <div style={{ marginTop: '3rem', paddingTop: '3rem', borderTop: '1px solid #222' }}>
+                        <div style={{ background: '#111', borderRadius: '1rem', border: '1px solid #333', padding: '2rem', maxWidth: '400px', margin: '0 auto 3rem' }}>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#FAFAFA' }}>Direct Contact</h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                <a href="mailto:contact@lodgepnw.com" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', color: '#fff', textDecoration: 'none', fontSize: '1.125rem' }}>
+                                    <Mail size={20} color="#10B981" />
+                                    <span>contact@lodgepnw.com</span>
+                                </a>
+                                <a href="tel:+917240727283" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', color: '#fff', textDecoration: 'none', fontSize: '1.125rem' }}>
+                                    <Phone size={20} color="#10B981" />
+                                    <span>+91 72407 27283</span>
+                                </a>
+                            </div>
+                        </div>
+
                         <h4 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Prefer Social?</h4>
                         <p style={{ marginBottom: '1.5rem' }}>Slide into our DMs for a quick audit of your current digital presence:</p>
                         <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center' }}>
