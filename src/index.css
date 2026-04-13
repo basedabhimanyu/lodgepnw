@@ -390,6 +390,26 @@ nav {
     justify-content: center;
 }
 
+/* Feature Embed */
+.preview-iframe-wrapper {
+    width: 100%;
+    height: 650px;
+    background: #000;
+    position: relative;
+}
+
+.preview-embed-url {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 0.3rem 2rem;
+    font-size: 0.75rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 0 1.5rem;
@@ -448,5 +468,15 @@ nav {
         flex-direction: column;
         text-align: center;
         gap: 1.5rem !important;
+    }
+
+    .preview-iframe-wrapper {
+        height: 70vh;
+        min-height: 480px;
+    }
+
+    .preview-embed-url {
+        padding: 0.3rem 1rem;
+        font-size: 0.7rem;
     }
 }

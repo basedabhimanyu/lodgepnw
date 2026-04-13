@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone } from 'lucide-react'
+import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone, ExternalLink } from 'lucide-react'
 
 const App = () => {
     const [expertiseTab, setExpertiseTab] = useState('cabins') // 'cabins' or 'venues'
@@ -26,6 +26,7 @@ const App = () => {
                         LodgePNW
                     </div>
                     <div className="nav-links">
+                        <a href="#work">Work</a>
                         <a href="#expertise">Expertise</a>
                         <a href="#why-us">Why Us</a>
                         <a href="#features">Features</a>
@@ -77,6 +78,54 @@ const App = () => {
                     <span>DIRECT BOOKINGS — PROPERTY MANAGEMENT SYNC — SEAMLESS PAYMENTS — HIGH-END DESIGN — LODGIFY & CLOUDBEDS INTEGRATION — DIRECT BOOKINGS — PROPERTY MANAGEMENT SYNC — SEAMLESS PAYMENTS — HIGH-END DESIGN — LODGIFY & CLOUDBEDS INTEGRATION — </span>
                 </div>
             </div>
+
+            {/* Featured Work / Sample */}
+            <section id="work" style={{ padding: '8rem 0', background: '#050505', borderBottom: '1px solid #222' }}>
+                <div className="container" style={{ maxWidth: '1000px', textAlign: 'center' }}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="badge" style={{ marginBottom: '1.5rem', background: 'rgba(16, 185, 129, 0.1)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                            Featured Project
+                        </div>
+                        <h2 style={{ marginBottom: '1.5rem' }}>Experience a <br/><span style={{ color: '#666' }}>Live Direct Booking Website</span></h2>
+                        <p style={{ fontSize: '1.125rem', marginBottom: '3rem', color: '#888', maxWidth: '700px', margin: '0 auto' }}>
+                            Take a tour of our sample booking website. Fast, responsive, and designed for seamless checkouts without the OTA fees.
+                        </p>
+                        
+                        <div style={{ background: '#111', border: '1px solid #333', borderRadius: '1rem', overflow: 'hidden', maxWidth: '1000px', margin: '0 auto', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}>
+                            <div style={{ padding: '1rem', borderBottom: '1px solid #222', display: 'flex', gap: '0.5rem', background: '#0a0a0a', alignItems: 'center' }}>
+                                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#EF4444' }}></div>
+                                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#EAB308' }}></div>
+                                <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#10B981' }}></div>
+                                <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                                    <div className="preview-embed-url">
+                                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10B981', boxShadow: '0 0 8px #10B981' }}></div>
+                                        Live Preview Active
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="preview-iframe-wrapper">
+                                <iframe 
+                                    src="https://whispering-pines-amber.vercel.app/" 
+                                    style={{ width: '100%', height: '100%', border: 'none' }} 
+                                    title="Whispering Pines Retreat Preview"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                        
+                        <div style={{ marginTop: '3rem' }}>
+                            <a href="https://whispering-pines-amber.vercel.app/" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '1rem 2.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.75rem' }}>
+                                View Full Screen
+                                <ExternalLink size={20} />
+                            </a>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
 
             {/* Industry Expertise Toggle */}
             <section id="expertise" style={{ padding: '8rem 0' }}>
