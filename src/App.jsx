@@ -1,9 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone, ExternalLink } from 'lucide-react'
+import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone, ExternalLink, Star } from 'lucide-react'
 
 const App = () => {
     const [expertiseTab, setExpertiseTab] = useState('cabins') // 'cabins' or 'venues'
+    const [currentTestimonial, setCurrentTestimonial] = useState(0)
+
+    const testimonialsList = [
+        {
+            name: "@jessrachelle.co",
+            role: "Travel Influencer",
+            content: "These guys are amazing. They promoted my content on their pages and actually took over handling my day-to-day Instagram growth. The results have been insane!"
+        },
+        {
+            name: "Earthlight Villas",
+            role: "@earthlightvillas",
+            content: "Collabing with LodgePNW really helped us blow up. They know exactly how to drive traffic and get eyes on our villas. Super glad we partnered with them."
+        },
+        {
+            name: "Sarah M.",
+            role: "Boutique Cabin Owner",
+            content: "We finally ditched all those crazy Airbnb fees! The booking site they built us looks gorgeous, and my calendar just syncs up perfectly without me doing anything."
+        },
+        {
+            name: "David L.",
+            role: "Luxury Event Venue",
+            content: "Honestly, the new website has been a lifesaver. We're getting way more wedding inquiries, and that custom form they added saves me hours of answering the same questions."
+        }
+    ]
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTestimonial(prev => (prev + 1) % testimonialsList.length)
+        }, 5000)
+        return () => clearInterval(timer)
+    }, [])
 
     const cabinFeatures = [
         { title: 'Instant Booking', desc: 'Zero commissions, secure payments directly to your bank.' },
@@ -30,6 +61,7 @@ const App = () => {
                         <a href="#expertise">Expertise</a>
                         <a href="#why-us">Why Us</a>
                         <a href="#features">Features</a>
+                        <a href="#testimonials">Reviews</a>
                         <a href="#pricing">Pricing</a>
                         <a href="#about">About</a>
                     </div>
@@ -354,6 +386,66 @@ const App = () => {
                 </div>
             </section>
 
+            {/* Testimonials / Social Proof */}
+            <section id="testimonials" style={{ padding: '8rem 0' }}>
+                <div className="container">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        style={{ textAlign: 'center', marginBottom: '4rem' }}
+                    >
+                        <h2 style={{ marginBottom: '1.5rem' }}>Trusted by <br /><span style={{ color: '#666' }}>Top Properties & Creators</span></h2>
+                        <p style={{ fontSize: '1.125rem', color: '#888', maxWidth: '700px', margin: '0 auto' }}>
+                            We've successfully promoted over 100+ travel accounts across our Instagram pages and built direct booking engines for premier stays nationwide. Here's what they say.
+                        </p>
+                    </motion.div>
+
+                    <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', overflow: 'hidden', padding: '0.5rem' }}>
+                        <AnimatePresence mode="wait">
+                            <motion.div 
+                                key={currentTestimonial}
+                                className="info-card"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.5 }}
+                                style={{ background: '#111', padding: 'clamp(1.5rem, 5vw, 3rem)', borderRadius: '1rem', border: '1px solid #222', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}
+                            >
+                                <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.5rem' }}>
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <Star key={star} size={24} fill="#EAB308" color="#EAB308" />
+                                    ))}
+                                </div>
+                                <p style={{ fontSize: 'clamp(1rem, 4vw, 1.25rem)', marginBottom: '2rem', fontStyle: 'italic', color: '#FAFAFA', lineHeight: 1.6 }}>
+                                    "{testimonialsList[currentTestimonial].content}"
+                                </p>
+                                <div>
+                                    <h4 style={{ fontSize: '1.125rem', marginBottom: '0.25rem' }}>{testimonialsList[currentTestimonial].name}</h4>
+                                    <p style={{ fontSize: '0.875rem', color: '#10B981', fontWeight: 500 }}>{testimonialsList[currentTestimonial].role}</p>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+
+                        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginTop: '2rem' }}>
+                            {testimonialsList.map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCurrentTestimonial(idx)}
+                                    style={{
+                                        width: '12px', height: '12px', borderRadius: '50%',
+                                        background: currentTestimonial === idx ? '#10B981' : '#333',
+                                        border: 'none', cursor: 'pointer',
+                                        transition: 'background 0.3s'
+                                    }}
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Pricing */}
             <section id="pricing" style={{ padding: '8rem 0', textAlign: 'center' }}>
                 <div className="container" style={{ maxWidth: '800px' }}>
@@ -379,7 +471,7 @@ const App = () => {
                                 ))}
                             </div>
 
-                            <a href="mailto:contact@lodgepnw.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.25rem 3rem', width: '100%', maxWidth: '300px' }}>
+                            <a href="mailto:lodgepnw@gmail.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.25rem 3rem', width: '100%', maxWidth: '300px' }}>
                                 Start Your Project
                             </a>
                         </div>
@@ -393,25 +485,11 @@ const App = () => {
                     <h2 style={{ marginBottom: '1.5rem' }}>Ready to Scale <span style={{ color: '#666' }}>Your Property?</span></h2>
                     <p style={{ fontSize: '1.25rem', marginBottom: '3rem' }}>Whether you’re a boutique hotel, a cozy cabin, or a premier event venue, let’s get you booked.</p>
 
-                    <a href="mailto:contact@lodgepnw.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.5rem 3rem', marginBottom: '2rem' }}>
-                        Email Us: contact@lodgepnw.com
+                    <a href="mailto:lodgepnw@gmail.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.5rem 3rem', marginBottom: '2rem' }}>
+                        Email Us: lodgepnw@gmail.com
                     </a>
 
                     <div style={{ marginTop: '3rem', paddingTop: '3rem', borderTop: '1px solid #222' }}>
-                        <div style={{ background: '#111', borderRadius: '1rem', border: '1px solid #333', padding: '2rem', maxWidth: '400px', margin: '0 auto 3rem' }}>
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#FAFAFA' }}>Direct Contact</h3>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                <a href="mailto:contact@lodgepnw.com" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', color: '#fff', textDecoration: 'none', fontSize: '1.125rem' }}>
-                                    <Mail size={20} color="#10B981" />
-                                    <span>contact@lodgepnw.com</span>
-                                </a>
-                                <a href="tel:+917240727283" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', color: '#fff', textDecoration: 'none', fontSize: '1.125rem' }}>
-                                    <Phone size={20} color="#10B981" />
-                                    <span>+91 72407 27283</span>
-                                </a>
-                            </div>
-                        </div>
-
                         <h4 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Prefer Social?</h4>
                         <p style={{ marginBottom: '1.5rem' }}>Slide into our DMs for a quick audit of your current digital presence:</p>
                         <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center' }}>
