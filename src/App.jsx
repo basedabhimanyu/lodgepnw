@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone, ExternalLink, Star } from 'lucide-react'
 
 const App = () => {
-    const [expertiseTab, setExpertiseTab] = useState('cabins') // 'cabins' or 'venues'
+    const [expertiseTab, setExpertiseTab] = useState('maritime') // 'maritime' or 'hospitality'
     const [currentTestimonial, setCurrentTestimonial] = useState(0)
 
     const testimonialsList = [
@@ -36,16 +36,16 @@ const App = () => {
         return () => clearInterval(timer)
     }, [])
 
-    const cabinFeatures = [
-        { title: 'Instant Booking', desc: 'Zero commissions, secure payments directly to your bank.' },
-        { title: 'Complete Calendar Sync', desc: 'Real-time synchronization across Airbnb, VRBO, and booking.com. No double bookings.' },
-        { title: 'Automated Logistics', desc: 'Automated check-in instructions and follow-ups to save you hours.' }
+    const maritimeFeatures = [
+        { title: 'Frictionless Booking Engines', desc: 'Secure, high-ticket transactions customized for luxury yachts and high-end fishing charters.' },
+        { title: 'Digital Showrooms', desc: 'Immersive, cinematic layouts that showcase your vessels in their absolute best light.' },
+        { title: 'Headless Architecture', desc: 'Lightning-fast mobile experiences ensuring you never lose a high-net-worth client to clunky booking flows.' }
     ]
 
-    const venueFeatures = [
-        { title: 'Lead Generation & Tours', desc: 'Capture high-intent wedding and event leads with seamless tour scheduling.' },
-        { title: 'Cinematic Visual Galleries', desc: 'Optimized, high-res visual layouts that showcase your venue in its best light.' },
-        { title: 'Custom Inquiries', desc: 'Tailored application forms to qualify budgets, dates, and event sizes.' }
+    const hospitalityFeatures = [
+        { title: 'Premium Direct Bookings', desc: 'Bypass OTA fees with custom-built booking funnels for premium Airbnbs and exclusive resorts.' },
+        { title: 'Bespoke Inquiry Systems', desc: 'Tailored application forms to qualify budgets and dates for boutique wineries and vineyards.' },
+        { title: 'Automated Operations', desc: 'Complete calendar sync and automated logistics to handle elite guest reservations effortlessly.' }
     ]
 
     return (
@@ -86,15 +86,15 @@ const App = () => {
                             Available for New Projects
                         </div>
                         <h1>
-                            Elevate Your Stay.<br />
-                            <span style={{ color: '#666' }}>Automate Your Bookings.</span>
+                            Cinematic Web Design &<br />
+                            <span style={{ color: '#666' }}>Booking Architecture.</span>
                         </h1>
                         <p style={{ fontSize: '1.25rem', margin: '2rem auto 3rem', color: '#888', maxWidth: '700px' }}>
-                            We build high-performance websites and seamless software integrations for the world's most iconic stays. From PNW cabins to luxury event venues, we turn visitors into guests.
+                            We build exclusive digital showrooms and frictionless booking engines for Premium Hospitality & Maritime Brands. Stop losing high-net-worth customers to clunky mobile experiences.
                         </p>
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                             <a href="#pricing" className="btn btn-primary">
-                                Get Started – Starting at $999
+                                Upgrade Your Brand
                             </a>
                             <a href="#why-us" className="btn">
                                 View Our Network
@@ -172,35 +172,35 @@ const App = () => {
 
                         <div className="tabs-wrapper">
                             <button
-                                className={`tab-btn ${expertiseTab === 'cabins' ? 'active' : ''}`}
-                                onClick={() => setExpertiseTab('cabins')}
+                                className={`tab-btn ${expertiseTab === 'maritime' ? 'active' : ''}`}
+                                onClick={() => setExpertiseTab('maritime')}
                             >
-                                <Building2 size={18} />
-                                Cabins & Resorts
+                                <MapPin size={18} />
+                                Maritime Brands
                             </button>
                             <button
-                                className={`tab-btn ${expertiseTab === 'venues' ? 'active' : ''}`}
-                                onClick={() => setExpertiseTab('venues')}
+                                className={`tab-btn ${expertiseTab === 'hospitality' ? 'active' : ''}`}
+                                onClick={() => setExpertiseTab('hospitality')}
                             >
-                                <BookHeart size={18} />
-                                Event Venues
+                                <Building2 size={18} />
+                                Premium Hospitality
                             </button>
                         </div>
 
                         <div className="content-box">
                             <AnimatePresence mode="wait">
-                                {expertiseTab === 'cabins' && (
+                                {expertiseTab === 'maritime' && (
                                     <motion.div
-                                        key="cabins"
+                                        key="maritime"
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ duration: 0.3 }}
                                     >
-                                        <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Cabins & Resorts</h3>
-                                        <p style={{ marginBottom: '2rem' }}>Optimized for seamless self-service operations and maximum occupancy.</p>
+                                        <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Luxury Yachts & Charters</h3>
+                                        <p style={{ marginBottom: '2rem' }}>Exclusive digital architecture tailored for high-end fishing and excursion charters.</p>
                                         <div className="feature-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                                            {cabinFeatures.map((feat, idx) => (
+                                            {maritimeFeatures.map((feat, idx) => (
                                                 <div key={idx} style={{ display: 'flex', gap: '1rem' }}>
                                                     <CheckCircle2 color="#10B981" style={{ flexShrink: 0, marginTop: '2px' }} />
                                                     <div>
@@ -212,18 +212,18 @@ const App = () => {
                                         </div>
                                     </motion.div>
                                 )}
-                                {expertiseTab === 'venues' && (
+                                {expertiseTab === 'hospitality' && (
                                     <motion.div
-                                        key="venues"
+                                        key="hospitality"
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ duration: 0.3 }}
                                     >
-                                        <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>High-End Event Venues</h3>
-                                        <p style={{ marginBottom: '2rem' }}>Engineered to showcase luxury spaces and capture high-budget wedding leads.</p>
+                                        <h3 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Boutique Wineries & Resorts</h3>
+                                        <p style={{ marginBottom: '2rem' }}>Corporate, highly-exclusive platforms crafted for premium Airbnbs and high-end venues.</p>
                                         <div className="feature-list" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                                            {venueFeatures.map((feat, idx) => (
+                                            {hospitalityFeatures.map((feat, idx) => (
                                                 <div key={idx} style={{ display: 'flex', gap: '1rem' }}>
                                                     <CheckCircle2 color="#10B981" style={{ flexShrink: 0, marginTop: '2px' }} />
                                                     <div>
@@ -256,7 +256,7 @@ const App = () => {
                                 <span style={{ color: '#666' }}>We Have the Audience.</span>
                             </h2>
                             <p style={{ marginBottom: '2rem', fontSize: '1.125rem', lineHeight: 1.6 }}>
-                                Most agencies build a site and leave you to find the traffic. We do it differently. When you work with us, you aren't just getting a developer—you're getting a partner with a 180k+ reach across the Pacific Northwest and the United States.
+                                Most agencies simply build a site and leave you to find the traffic. We operate differently. We command an audience of 180k+ locals and enthusiasts across our travel networks, allowing us to drive actual, high-intent traffic directly to your new digital showroom.
                             </p>
                             <p style={{ fontSize: '1.125rem' }}>
                                 We know what travelers want to see because we engage with them every day on <a href="https://instagram.com/visit.the.pnw" style={{ color: '#fff', textDecoration: 'underline' }}>@visit.the.pnw</a> and <a href="https://instagram.com/visit.the.states" style={{ color: '#fff', textDecoration: 'underline' }}>@visit.the.states</a>.
@@ -482,8 +482,8 @@ const App = () => {
             {/* Contact / Final CTA */}
             <section id="contact" style={{ padding: '8rem 0', borderTop: '1px solid #222' }}>
                 <div className="container" style={{ textAlign: 'center', maxWidth: '700px' }}>
-                    <h2 style={{ marginBottom: '1.5rem' }}>Ready to Scale <span style={{ color: '#666' }}>Your Property?</span></h2>
-                    <p style={{ fontSize: '1.25rem', marginBottom: '3rem' }}>Whether you’re a boutique hotel, a cozy cabin, or a premier event venue, let’s get you booked.</p>
+                    <h2 style={{ marginBottom: '1.5rem' }}>Ready to Elevate <span style={{ color: '#666' }}>Your Brand?</span></h2>
+                    <p style={{ fontSize: '1.25rem', marginBottom: '3rem' }}>Whether you operate a superyacht, a boutique winery, or a premium resort, we construct the digital infrastructure to capture high-net-worth clientele.</p>
 
                     <a href="mailto:lodgepnw@gmail.com" className="btn btn-primary" style={{ fontSize: '1.125rem', padding: '1.5rem 3rem', marginBottom: '2rem' }}>
                         Email Us: lodgepnw@gmail.com
