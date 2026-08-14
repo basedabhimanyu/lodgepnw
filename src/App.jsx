@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, CheckCircle2, CalendarSync, MessageSquare, Image as ImageIcon, Smartphone, LayoutTemplate, Code2, Sparkles, MapPin, Building2, BookHeart, Mail, Phone, ExternalLink, Star } from 'lucide-react'
+import { Analytics } from '@vercel/analytics/react'
 
 const App = () => {
     const [expertiseTab, setExpertiseTab] = useState('maritime') // 'maritime' or 'hospitality'
@@ -520,6 +521,7 @@ const App = () => {
                     </div>
                 </div>
             </footer>
+            <Analytics />
         </>
     )
 }
