@@ -1,11 +1,14 @@
-// Teardown requests go to the inbox through Web3Forms (https://web3forms.com), a form-to-email
-// service. The access key is set at build time as VITE_WEB3FORMS_KEY; it is designed to be
-// public and only lets this form send to the inbox it was created for.
+// Teardown requests go to the inbox through FormSubmit (https://formsubmit.co), a form-to-email
+// service with no account: the first submission emails an activation link to the inbox, and
+// once that is clicked every request arrives as an email. Until then (or if it is ever down)
+// the form falls back to a pre-filled email, so no lead is lost.
 
 export const contactEmail = 'abhimanyu@lodgepnw.com'
 
-const endpoint = 'https://api.web3forms.com/submit'
-const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined
+// FormSubmit can hide the address behind a random alias it emails you after activation.
+// Set VITE_FORMSUBMIT_ID to that alias to keep the address out of the page's code.
+const formId = (import.meta.env.VITE_FORMSUBMIT_ID as string | undefined) || contactEmail
+const endpoint = `https://formsubmit.co/ajax/${formId}`
 
 export type TeardownRequest = {
   name: string
@@ -22,19 +25,15 @@ export type TeardownRequest = {
 export async function submitTeardown(req: TeardownRequest): Promise<boolean> {
   // A filled spam trap gets a fake success and is never sent.
   if (req.botcheck) return true
-  if (!accessKey) {
-    console.warn('VITE_WEB3FORMS_KEY is not set; showing the email fallback.')
-    return false
-  }
   try {
     const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        access_key: accessKey,
-        subject: `Teardown request: ${req.website}`,
-        from_name: 'LodgePNW website',
-        replyto: req.email,
+        _subject: `Teardown request: ${req.website}`,
+        _replyto: req.email,
+        _template: 'table',
+        _captcha: 'false',
         Name: req.name || '(not given)',
         Email: req.email,
         Website: req.website,
@@ -44,8 +43,8 @@ export async function submitTeardown(req: TeardownRequest): Promise<boolean> {
         Page: req.page,
       }),
     })
-    const body = (await res.json().catch(() => ({}))) as { success?: boolean }
-    return res.ok && body.success === true
+    const body = (await res.json().catch(() => ({}))) as { success?: boolean | string }
+    return res.ok && String(body.success) === 'true'
   } catch {
     return false
   }

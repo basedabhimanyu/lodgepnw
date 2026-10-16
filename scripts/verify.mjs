@@ -2,7 +2,11 @@
 import { chromium } from 'playwright-core'
 const exe = `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`
 const base = process.argv[2] ?? 'http://localhost:5173/'
-const browser = await chromium.launch({ executablePath: exe })
+const browser0 = await chromium.launch({ executablePath: exe })
+// Protected Vercel previews: pass the project's automation bypass secret as BYPASS.
+const browser = process.env.BYPASS
+  ? { newPage: (o = {}) => browser0.newPage({ ...o, extraHTTPHeaders: { 'x-vercel-protection-bypass': process.env.BYPASS } }), close: () => browser0.close() }
+  : browser0
 const results = []
 const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${detail ? '  — ' + detail : ''}`)
 
@@ -91,29 +95,37 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   ok('?city= changes the button', /Get my Leavenworth teardown/.test(btn), btn)
   // Success: intercept the form service and check exactly what gets sent.
   let sent = null
-  await page.route('https://api.web3forms.com/submit', async (route) => {
-    sent = JSON.parse(route.request().postData())
-    await route.fulfill({ status: 200, contentType: 'application/json', body: '{"success":true}' })
+  await page.route('https://formsubmit.co/ajax/**', async (route) => {
+    sent = { url: route.request().url(), ...JSON.parse(route.request().postData()) }
+    await route.fulfill({ status: 200, contentType: 'application/json', body: '{"success":"true","message":"The form was submitted successfully."}' })
   })
   await page.locator('#start input[name=website]').fill('mycabin.com')
   await page.locator('#start select').selectOption('OwnerRez')
   await page.locator('#start input[name=email]').fill('owner@mycabin.com')
   await page.locator('#start button[type=submit]').click()
   const msg = await page.locator('#start [role=status]').textContent({ timeout: 5000 }).catch(() => '')
-  const keyed = Boolean(process.env.EXPECT_KEY)
-  if (keyed) {
-    ok('Form sends to the inbox', /Bandit's on it/.test(msg) && sent?.Email === 'owner@mycabin.com' && sent?.Website === 'mycabin.com' && sent?.['Booking engine'] === 'OwnerRez' && sent?.['Pinned destination'] === 'Leavenworth' && Boolean(sent?.access_key), JSON.stringify(sent))
-  } else {
-    const fallback = await page.locator('#start [role=alert] a').getAttribute('href').catch(() => '')
-    ok('Without a key, form shows the email fallback', fallback.startsWith('mailto:abhimanyu@lodgepnw.com'), fallback.slice(0, 60))
-  }
+  ok('Form sends to the inbox', /Bandit's on it/.test(msg) && sent?.Email === 'owner@mycabin.com' && sent?.Website === 'mycabin.com' && sent?.['Booking engine'] === 'OwnerRez' && sent?.['Pinned destination'] === 'Leavenworth' && sent?._replyto === 'owner@mycabin.com', sent ? `to ${sent.url}` : 'nothing sent')
+  await page.close()
+}
+
+// 3a. Not activated yet: FormSubmit says no, visitor gets the email fallback
+{
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
+  await page.route('https://formsubmit.co/ajax/**', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: '{"success":"false","message":"This form needs Activation."}' }))
+  await page.goto(base, { waitUntil: 'networkidle' })
+  await page.locator('#start input[name=website]').fill('mycabin.com')
+  await page.locator('#start select').selectOption('Guesty')
+  await page.locator('#start input[name=email]').fill('owner@mycabin.com')
+  await page.locator('#start button[type=submit]').click()
+  const fallback = await page.locator('#start [role=alert] a').getAttribute('href', { timeout: 5000 }).catch(() => '')
+  ok('Unactivated form shows the email fallback', fallback.startsWith('mailto:abhimanyu@lodgepnw.com'), fallback.slice(0, 60))
   await page.close()
 }
 
 // 3b. Final form: a failed send shows the email fallback
 {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
-  await page.route('https://api.web3forms.com/submit', (route) => route.abort())
+  await page.route('https://formsubmit.co/ajax/**', (route) => route.abort())
   await page.goto(base, { waitUntil: 'networkidle' })
   const f = page.locator('#teardown form')
   await f.scrollIntoViewIfNeeded()
