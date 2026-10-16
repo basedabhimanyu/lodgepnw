@@ -1,0 +1,16 @@
+import { chromium } from 'playwright-core'
+const exe = `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1208/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`
+const browser = await chromium.launch({ executablePath: exe })
+const page = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 })
+await page.goto(process.argv[2] ?? 'http://localhost:5173/', { waitUntil: 'networkidle' })
+const bar = () => page.evaluate(() => { const b = document.querySelector('.fixed.inset-x-0.bottom-0'); return b ? b.style.transform || 'none' : 'missing' })
+await page.waitForTimeout(800)
+console.log('top', await bar())
+await page.evaluate(() => window.scrollTo(0, 0)); await page.mouse.wheel(0, 1); await page.waitForTimeout(1200)
+await page.screenshot({ path: 'shots/bar-top.png' })
+console.log('top after wheel', await bar(), await page.evaluate(() => window.scrollY))
+await page.evaluate(() => window.scrollTo(0, 2000)); await page.waitForTimeout(800)
+console.log('mid', await bar())
+await page.evaluate(() => document.querySelector('#teardown form').scrollIntoView({ block: 'center' })); await page.waitForTimeout(1200)
+console.log('final form', await bar())
+await browser.close()
