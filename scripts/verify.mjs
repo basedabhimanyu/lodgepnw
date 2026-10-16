@@ -104,7 +104,7 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   await page.locator('#start input[name=email]').fill('owner@mycabin.com')
   await page.locator('#start button[type=submit]').click()
   const msg = await page.locator('#start [role=status]').textContent({ timeout: 5000 }).catch(() => '')
-  ok('Form sends to the inbox', /Bandit's on it/.test(msg) && sent?.Email === 'owner@mycabin.com' && sent?.Website === 'mycabin.com' && sent?.['Booking engine'] === 'OwnerRez' && sent?.['Pinned destination'] === 'Leavenworth' && sent?._replyto === 'owner@mycabin.com', sent ? `to ${sent.url}` : 'nothing sent')
+  ok('Form sends to the inbox', /Bandit's on it/.test(msg) && sent?.url.endsWith('/2e731b3f4a61c6c0ece89e7315f123cb') && sent?.Email === 'owner@mycabin.com' && sent?.Website === 'mycabin.com' && sent?.['Booking engine'] === 'OwnerRez' && sent?.['Pinned destination'] === 'Leavenworth' && sent?._replyto === 'owner@mycabin.com', sent ? `to ${sent.url}` : 'nothing sent')
   await page.close()
 }
 

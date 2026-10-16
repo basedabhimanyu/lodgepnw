@@ -5,9 +5,9 @@
 
 export const contactEmail = 'abhimanyu@lodgepnw.com'
 
-// FormSubmit can hide the address behind a random alias it emails you after activation.
-// Set VITE_FORMSUBMIT_ID to that alias to keep the address out of the page's code.
-const formId = (import.meta.env.VITE_FORMSUBMIT_ID as string | undefined) || contactEmail
+// FormSubmit's alias for that inbox (sent after activation), so the address isn't in the
+// form's endpoint. VITE_FORMSUBMIT_ID can override it.
+const formId = (import.meta.env.VITE_FORMSUBMIT_ID as string | undefined) || '2e731b3f4a61c6c0ece89e7315f123cb'
 const endpoint = `https://formsubmit.co/ajax/${formId}`
 
 export type TeardownRequest = {
